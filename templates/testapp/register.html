@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register User</title>
+    <link rel="stylesheet" href="{% static 'testapp/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'testapp/style.css' %}">
+</head>
+<body>
+<form method="post">
+    {% csrf_token %}
+    {% for fm in form %}
+        <p>{{ fm.label_tag }}{{ fm }} {{fm.errors|striptags}}</p>
+    {% endfor %}
+    <input type="submit" value="Submited">
+</form>
+<br>
+{% if messages %}
+    {% for msg in messages %}
+        <small { % if msg.tags %} class="{{ msg.tags }}"{ % endif  %}>{{ msg }}</small>
+    {% endfor %}
+{% endif %}
+<a href="{% url 'log_in' %}"><button class="btn btn-warning">LogIn</button></a>
+</body>
+</html>

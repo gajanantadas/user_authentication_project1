@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="{% static 'testapp/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'testapp/style.css' %}">
+</head>
+<body>
+<h2> hello Welcome {{ name }}</h2>
+{% if messages %}
+    {% for msg in messages %}
+        <small { % if msg.tags %} class="{{ msg.tags }}"{ % endif  %}><h3>{{ msg }}</h3></small>
+    {% endfor %}
+{% endif %}
+{% if users != None %}
+    <h2>List off User:</h2>
+    {% for user in users %}
+        <a href="{% url 'userdetail' user.id %}"> <button class="btn btn-primary">{{ user.username }}</button></a><br><br>
+    {% endfor %}
+{% endif %}
+<form method="post">
+{% csrf_token %}
+    {% for fm in form %}
+        <p>{{ fm.label_tag }} {{ fm }} {{fm.errors|striptags}}</p>
+    {% endfor %}
+<input type="submit" value="Save">
+</form><br>
+<a href="{% url 'change' %}"><button class="btn btn-warning">change_password</button></a><br><br>
+<a href="{% url 'log_out' %}"><button class="btn btn-primary">LogOut</button></a><br>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'testapp/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'testapp/style.css' %}">
+</head>
+<body>
+<form method="post">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+        {% for erorr in form.non_field_errors %}
+            <p>{{ erorr }}</p>
+        {% endfor %}
+{% endif %}
+    {% for fm in form %}
+        <p>{{ fm.label_tag }} {{ fm }} {{fm.errors|striptags}}</p>
+    {% endfor %}
+ <input type="submit" value="LogIn">
+</form><br><br>
+<a href="{% url 'sign_up' %}" ><button class="btn btn-primary"> Sign_up</button> </a>
+</body>
+</html>
